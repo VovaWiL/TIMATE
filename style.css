@@ -1,0 +1,22 @@
+body {
+    margin: 0;
+    height: 100-vh;
+    /* Тот самый салатовый градиент */
+    background: radial-gradient(circle, #c5e88a 0%, #8dc63f 100%);
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat-container {
+    width: 400px;
+    height: 600px;
+    background: rgba(255, 255, 255, 0.2); /* Эффект стекла */
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
