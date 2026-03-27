@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIMATE Messenger</title>
+    <style>
+        /* Основной фон с твоим градиентом */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, #d4f29d 0%, #8dc63f 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Контейнер мессенджера (стеклянный эффект) */
+        .messenger-container {
+            width: 90%;
+            max-width: 400px;
+            height: 80vh;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        /* Шапка с названием и аватаркой */
+        .header {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #fff;
+            /* Сюда можно подставить путь к твоей картинке TimateAva.jpg */
+            background-image: url('TimateAva.jpg'); 
+            background-size: cover;
+            border: 2px solid #5d8a21;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 20px;
+            color: #2d4d00;
+            letter-spacing: 1px;
+        }
+
+        /* Область сообщений */
+        #chat-window {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            max-width: 75%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .sent {
+            align-self: flex-end;
+            background: #4a7d00;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .received {
+            align-self: flex-start;
+            background: white;
+            color: #333;
+            border-bottom-left-radius: 4px;
+        }
+
+        /* Поле ввода */
+        .input-area {
+            padding: 20px;
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            background: white;
+        }
+
+        button {
+            background: #2d4d00;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #4a7d00;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="messenger-container">
+        <div class="header">
+            <div class="avatar"></div>
+            <h1>TIMATE</h1>
+        </div>
+
+        <div id="chat-window">
+            <div class="message received">Привет! Это прототип TIMATE. Попробуй что-нибудь написать.</div>
+        </div>
+
+        <div class="input-area">
+            <input type="text" id="msg-input" placeholder="Сообщение..." onkeypress="handleKey(event)">
+            <button onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+
+    <script>
+        const chatWindow = document.getElementById('chat-window');
+        const msgInput = document.getElementById('msg-input');
+
+        function sendMessage() {
+            const text = msgInput.value.trim();
+            if (text !== "") {
+                // Создаем сообщение пользователя
+                addMessage(text, 'sent');
+                msgInput.value = "";
+
+                // Простая авто-ответка через секунду
+                setTimeout(() => {
+                    addMessage("Круто звучит! 🌿", 'received');
+                }, 1000);
+            }
+        }
+
+        function addMessage(text, type) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${type}`;
+            msgDiv.innerText = text;
+            chatWindow.appendChild(msgDiv);
+            
+            // Прокрутка вниз
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        function handleKey(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
+    </script>
+</body>
+</html>
